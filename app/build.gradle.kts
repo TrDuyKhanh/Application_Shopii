@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.androidApplication)
+
 }
 
 android {
@@ -40,4 +41,18 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+    implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
+    implementation("com.google.firebase:firebase-analytics")
+
+
+    //firestore
+    implementation("com.google.firebase:firebase-firestore")
+    //authentication
+    implementation("com.google.firebase:firebase-auth")
+    //storage
+    implementation("com.google.firebase:firebase-storage")
+    //glide
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
+
 }
