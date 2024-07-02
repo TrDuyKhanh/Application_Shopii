@@ -1,6 +1,6 @@
 plugins {
     alias(libs.plugins.androidApplication)
-
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -41,6 +41,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    implementation ("androidx.appcompat:appcompat:1.4.1")
 
     implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
     implementation("com.google.firebase:firebase-analytics")
@@ -54,5 +55,8 @@ dependencies {
     implementation("com.google.firebase:firebase-storage")
     //glide
     implementation ("com.github.bumptech.glide:glide:4.16.0")
-
+    //reponsive size
+    implementation ("com.intuit.sdp:sdp-android:1.1.1")
+    //reponsive size
+    implementation ("com.intuit.ssp:ssp-android:1.1.1")
 }
