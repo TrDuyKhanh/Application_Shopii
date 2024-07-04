@@ -1,4 +1,4 @@
-package com.example.application_shopii.SignIn;
+package com.example.application_shopii.Auth;
 
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
@@ -15,6 +15,7 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -22,8 +23,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.application_shopii.MainActivity;
 import com.example.application_shopii.R;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -64,7 +65,8 @@ public class SignInActivity extends AppCompatActivity {
         switchToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-               animateSwitch(isChecked);
+                modeAdmin = isChecked;
+                animateSwitch(isChecked);
             }
         });
 
@@ -92,6 +94,11 @@ public class SignInActivity extends AppCompatActivity {
                     FirebaseUser user = firebaseAuth.getCurrentUser();
                     Toast.makeText(SignInActivity.this, "sucsess login with email pass as a user", Toast.LENGTH_SHORT).show();
                 }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(SignInActivity.this, "well, email or pass is wrong", Toast.LENGTH_SHORT).show();
+                }
             });
         }
     }
@@ -105,6 +112,11 @@ public class SignInActivity extends AppCompatActivity {
                 public void onSuccess(AuthResult authResult) {
                     FirebaseUser user = firebaseAuth.getCurrentUser();
                     Toast.makeText(SignInActivity.this, "sucsess login with email pass as a admin", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(SignInActivity.this, "email or pass wrong as admin pl check again", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -122,7 +134,6 @@ public class SignInActivity extends AppCompatActivity {
         float start = isChecked ? 0f : 1f;
         float end = isChecked ? 1f : 0f;
 
-        modeAdmin = true;
 
         ObjectAnimator.ofFloat(switchToggle, "alpha", start, end)
                 .setDuration(500)
